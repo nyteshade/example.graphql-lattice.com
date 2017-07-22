@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const parse = require('git-url-parse');
+const spawn = require('child_process').spawnSync;
+const files = require('fs');
+const paths = require('path');
+const certs = paths.resolve(paths.join(process.cwd(), 'certs'));
+
+if (!files.existsSync(certs)) {
+  console.log('Unable to find %s. Are you in the right directory?', certs);
+  process.exit(1);
+}
+
+let repo;
+
+if (!repo) {
+  repo = process.env.REPO || '';
+  if (!repo.length) {
+    repo = spawn('git',['remote','get-url','origin']).stdout.toString().replace(/\n/,'');
+    repo = repo.length && parse(repo) || null;
+    if (repo) {
+      let parsed = paths.parse(repo.full_name);
+      parsed.base = `ssl-${parsed.base}`
+      repo.full_name = paths.format(parsed);
+      repo = repo.toString();
+    }
+  }
+}
+
+let o = {stdio: 'inherit'}
+spawn('git', ['clone', repo, '.tmp-ssl'], o)
+spawn('rm', ['-rf', '.tmp-ssl/.git', '.tmp-ssl/README.md'], o);
+spawn('cp', ['-r', '.tmp-ssl/', certs + '/'], o)
+spawn('rm', ['-rf', paths.join(certs, '.git'), '.tmp-ssl'], o)
+
+process.exit(0)
+

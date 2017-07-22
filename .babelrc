@@ -1,0 +1,19 @@
+{
+  "presets": [
+    "es2015",
+    "es2016",
+    "es2017",
+    "react",
+    ["env", {
+      "targets": { "node": "current" },
+      "modules": "commonjs",
+      "useBuiltIns": true,
+      "debug": true
+    }]
+  ],
+  "plugins": [
+    "transform-async-to-generator",
+    "transform-decorators-legacy",
+    "transform-runtime"
+  ]
+}
