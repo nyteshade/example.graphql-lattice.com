@@ -1,0 +1,47 @@
+:global(.webp) .home >header {
+  background-image: url(/imgs/sky.webp);
+}
+
+.home {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  > header {
+    flex: 1;
+    background-image: url(/imgs/sky.png);
+    background-size: cover;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    align-items: center;
+    border-radius: 10px;
+    margin: 1.5em;
+    padding: 2em 1em;
+    min-height: 222px;
+    position: relative;
+    overflow: hidden;   
+    text-align: center;
+    
+    &::before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0,0,0,0.15);
+      top: 0;
+      left: 0;      
+    }
+    
+    h1,h2,h3,h4,h5,h6 {
+      position: relative;
+    }
+  }
+  
+  > article {
+    display: flex;
+    flex-direction: column;
+    flex: 6;   
+    margin: 1.5em;
+    padding: 0 1em;
+  }  
+}
