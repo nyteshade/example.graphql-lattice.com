@@ -8,15 +8,6 @@ export default class Address extends GQLBase {
   zipcode() { return this.model.zipcode }
   geo() { return new Geo(this.model.geo) }
 
-  static get SCHEMA() {
-    return `
-      type Address {
-        street: String
-        suite: String
-        city: String
-        zipcode: String
-        geo: Geo
-      }
-    `
-  }
+  static get SCHEMA() { return GQLBase.ADJACENT_FILE }
+  static get module() { return module; }
 }

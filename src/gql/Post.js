@@ -1,5 +1,4 @@
 import { GQLBase } from 'graphql-lattice'
-import fetch from 'node-fetch'
 import handleREST from '../RESTHandler'
 
 export default class Post extends GQLBase {
@@ -16,20 +15,6 @@ export default class Post extends GQLBase {
     }
   }
 
-  static get SCHEMA() {
-    return `
-      type Post {
-        userId: Int!
-        id: Int!
-        title: String
-        body: String
-        user: User
-      }
-
-      type Query {
-        post(id: Int!): Post
-        posts: [Post]
-      }
-    `
-  }
+  static get SCHEMA() { return GQLBase.ADJACENT_FILE }
+  static get module() { return module; }
 }

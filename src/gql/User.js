@@ -1,5 +1,4 @@
 import { GQLBase } from 'graphql-lattice'
-import fetch from 'node-fetch'
 import handleREST from '../RESTHandler'
 
 import Address from './Address'
@@ -22,23 +21,6 @@ export default class User extends GQLBase {
     }
   }
 
-  static get SCHEMA() {
-    return `
-      type User {
-        id: Int!
-        name: String!
-        username: String!
-        email: String
-        phone: String
-        website: String
-        address: Address
-        company: Company
-      }
-
-      type Query {
-        user(id: Int!): User
-        users: [User]
-      }
-    `
-  }
+  static get SCHEMA() { return GQLBase.ADJACENT_FILE }
+  static get module() { return module; }
 }
