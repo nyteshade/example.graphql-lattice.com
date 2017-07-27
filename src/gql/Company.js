@@ -1,17 +1,11 @@
-import { GQLBase } from 'graphql-lattice'
+import { GQLBase, Getters, Schema } from 'graphql-lattice'
 
-export default class Company extends GQLBase {  
-  name() { return this.model.name }
-  catchPhrase() { return this.model.catchPhrase }
-  bs() { return this.model.bs }
-  
-  static get SCHEMA() {
-    return `
-      type Company {
-        name: String
-        catchPhrase: String
-        bs: String 
-      }
-    `
-  }
-}
+@Schema(`
+  type Company {
+    name: String
+    catchPhrase: String
+    bs: String
+  }  
+`)
+@Getters('name', 'catchPhrase', 'bs')
+export default class Company extends GQLBase { }

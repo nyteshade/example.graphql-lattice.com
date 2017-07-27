@@ -1,15 +1,5 @@
-import { GQLBase } from 'graphql-lattice'
+import { GQLBase, Getters, Schema } from 'graphql-lattice'
 
-export default class Geo extends GQLBase {  
-  lat() { return this.model.lat }
-  lng() { return this.model.lng }
-  
-  static get SCHEMA() {
-    return `
-      type Geo {
-        lat: String
-        lng: String 
-      }
-    `
-  }
-}
+@Schema(` type Geo { lat: String lng: String } `)
+@Getters('lat', 'lng')
+export default class Geo extends GQLBase { }
