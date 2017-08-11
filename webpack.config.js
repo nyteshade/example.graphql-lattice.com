@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
@@ -8,10 +9,12 @@ module.exports = {
     path: path.resolve(__dirname, 'public', 'js')
   },
   target: 'web',
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'react-dom-router': 'ReactRouterDOM'
+  resolve: {
+    alias: {
+      'react': 'preact-compat',
+      'react-dom': 'preact-compat',
+      'create-react-class': 'preact-compat/lib/create-react-class'
+    }
   },
   node: {
     console: true,
@@ -35,7 +38,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: [
+          "presets": [
             "es2015",
             "es2016",
             "es2017",
@@ -46,6 +49,12 @@ module.exports = {
               "useBuiltIns": true,
               "debug": true
             }]
+          ],
+          "plugins": [
+            "transform-async-to-generator",
+            "transform-decorators-legacy",
+            "transform-runtime",
+            ["transform-react-jsx", { "pragma":"h" }]
           ]
         }
       },
@@ -72,6 +81,7 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin({filename: 'styles.css', allChunks: true, ignoreOrder: true, disable: true})
+    new ExtractTextPlugin({filename: 'styles.css', allChunks: true, ignoreOrder: true, disable: true}),
+    new webpack.optimize.UglifyJsPlugin({ mangle: true })
   ]
 };
