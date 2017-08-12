@@ -1,5 +1,6 @@
 import { GQLBase, Getters, Schema } from 'graphql-lattice'
 import Geo from './Geo'
+import Country from './Country'
 
 @Schema(`
   type Address {
@@ -8,10 +9,32 @@ import Geo from './Geo'
     city: String
     zipcode: String
     geo: Geo
+    country: Country
+    json: JSON
   }
 `)
-@Getters('street', 'suite', 'city', 'zipcode', 'geo')
+@Getters('street', 'suite', 'city', 'zipcode', ['geo', Geo], ['country', Country], 'json')
 export default class Address extends GQLBase {
+  constructor(model, requestData) {
+    super(model, requestData);
+
+    Object.defineProperties(this.getModel(), {
+      country: {
+        get: function() {
+          return parseInt(Math.random() * (10 + Math.random())) % 2 == 0
+            ? 'FOREIGN'
+            : 'United States of America'
+        }
+      },
+      
+      json: { 
+        get: function() {
+          return this;
+        }        
+      }
+    })
+  }
+
   static apiDocs() {
     const { DOC_CLASS, DOC_FIELDS, joinLines } = this;
 
