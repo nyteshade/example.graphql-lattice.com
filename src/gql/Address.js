@@ -17,20 +17,33 @@ import Country from './Country'
 export default class Address extends GQLBase {
   constructor(model, requestData) {
     super(model, requestData);
+    
+    // Object.assign(this.getModel(), {
+    //   get country() {
+    //     return parseInt(Math.random() * (10 + Math.random())) % 2 == 0
+    //       ? 'FOREIGN'                     // Using enum name
+    //       : 'United States of America'    // Using enum value 
+    //   },
+    //   
+    //   get json() {
+    //     return this;
+    //   }
+    // })
 
     Object.defineProperties(this.getModel(), {
       country: {
         get: function() {
           return parseInt(Math.random() * (10 + Math.random())) % 2 == 0
-            ? 'FOREIGN'
-            : 'United States of America'
+            ? 'FOREIGN'                     // Using enum name
+            : 'United States of America'    // Using enum value 
         }
       },
       
       json: { 
         get: function() {
           return this;
-        }        
+        },
+        enumerable: false
       }
     })
   }

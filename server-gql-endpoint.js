@@ -7,11 +7,12 @@ import Company from './src/gql/Company'
 import Geo from './src/gql/Geo'
 import Address from './src/gql/Address'
 import Country from './src/gql/Country'
+import {Page} from './src/gql/Page'
 
 const router = Express();
 const lattice = new GQLExpressMiddleware([
   // List all your imported Lattice classes here
-  Post, User, Company, Geo, Address, Country, GQLJSON
+  Post, User, Company, Geo, Address, Country, Page, GQLJSON
 ]);
 
 router.use('/graphql', lattice.middleware);

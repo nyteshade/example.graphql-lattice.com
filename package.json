@@ -5,15 +5,18 @@
   "main": "./startup",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./startup",
-    "local": "NODE_ENV=$(hostname -f) node ./startup",
-    "build": "webpack --config webpack.config.js",
+    "start": "node -r @std/esm ./startup",
+    "local": "NODE_ENV=$(hostname -f) node -r @std/esm ./startup",
+    "build": "webpack --config webpack.config.js -p --progress",
     "all": "npm run build && npm run start"
   },
   "repository": "git@github.com:nyteshade/graphql-lattice.com.git",
   "author": "Brielle Harrison",
   "license": "MIT",
   "dependencies": {
+    "@std/esm": "^0.5.1",
+    "apollo-client": "^1.9.1",
+    "apollo-client-browser": "^1.9.0",
     "babel-loader": "^7.0.0",
     "babel-plugin-module-resolver": "^2.7.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -39,7 +42,8 @@
     "flowtype": "^2.0.0",
     "fsevents": "^1.1.2",
     "graphql": "^0.10.1",
-    "graphql-lattice": "^2.5.0",
+    "graphql-lattice": "^2.6.0",
+    "graphql-tag": "^2.4.2",
     "jquery": "^3.2.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
@@ -65,10 +69,17 @@
     "postcss-color-rebeccapurple": "^3.0.0",
     "postcss-loader": "^2.0.6",
     "style-loader": "^0.18.2",
-    "webpack": "^3.5.3"
+    "webpack": "^3.5.3",
+    "webpack-bundle-analyzer": "^2.9.0"
   },
   "_moduleAliases": {
     "react": "node_modules/preact-compat",
     "react-dom": "node_modules/preact-compat"
+  },
+  "@std/esm": {
+    "await": true,
+    "gz": true,
+    "esm": "all",
+    "cjs": true
   }
 }

@@ -1,3 +1,5 @@
+require('@std/esm');
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack');
 var path = require('path');
@@ -9,6 +11,9 @@ module.exports = {
     path: path.resolve(__dirname, 'public', 'js')
   },
   target: 'web',
+  externals: {
+    'apollo-client-browser': 'Apollo'
+  },
   resolve: {
     alias: {
       'react': 'preact-compat',
@@ -81,7 +86,8 @@ module.exports = {
   },
 
   plugins: [
+    // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
     new ExtractTextPlugin({filename: 'styles.css', allChunks: true, ignoreOrder: true, disable: true}),
-    new webpack.optimize.UglifyJsPlugin({ mangle: true })
+    new webpack.optimize.UglifyJsPlugin({ mangle: false })
   ]
 };
