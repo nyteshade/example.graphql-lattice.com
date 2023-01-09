@@ -32,7 +32,7 @@
     "babel-standalone": "^6.25.0",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
-    "debug": "~2.6.3",
+    "debug": "~3.1.0",
     "escape-string-regexp": "^1.0.5",
     "express": "^4.15.3",
     "express-graphql": "^0.6.6",
